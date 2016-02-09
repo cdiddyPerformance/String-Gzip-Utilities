@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>String-gzip-utilities by cdiddyPerformance</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>String-gzip-utilities</h1>
+        <p>Simple Exampple String Wrapper and GZip Message Converter</p>
+
+        <p class="view"><a href="https://github.com/cdiddyPerformance/String-Gzip-Utilities">View the Project on GitHub <small>cdiddyPerformance/String-Gzip-Utilities</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/cdiddyPerformance/String-Gzip-Utilities/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/cdiddyPerformance/String-Gzip-Utilities/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/cdiddyPerformance/String-Gzip-Utilities">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="string-gzip-utilities" class="anchor" href="#string-gzip-utilities" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>String-Gzip-Utilities</h1>
+
+<p>Some simple Java String Wrappers for examples and a message converter that can be used to gzip and gunzip message contents.</p>
+
+<h2>
+<a id="pre-requisites" class="anchor" href="#pre-requisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-requisites</h2>
+
+<p>Java JDK 1.7</p>
+
+<h3>
+<a id="soasta-custom-scripting-module-api" class="anchor" href="#soasta-custom-scripting-module-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Soasta Custom Scripting Module API</h3>
+
+<ul>
+<li>cloudtest-plugin-api.jar </li>
+<li>cloudtest-scripting-environment.jar </li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//String Functions Without Wrapper</span>
+<span class="pl-k">var</span> str <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">java.lang</span>.<span class="pl-en">String</span>(<span class="pl-s"><span class="pl-pds">"</span>Hello World<span class="pl-pds">"</span></span>);
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, <span class="pl-s"><span class="pl-pds">"</span>str before: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> str);
+str <span class="pl-k">=</span> <span class="pl-smi">str</span>.<span class="pl-en">replaceAll</span>(<span class="pl-s"><span class="pl-pds">"</span>l<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>LL<span class="pl-pds">"</span></span>);
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, <span class="pl-s"><span class="pl-pds">"</span>str after: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> str);
+str <span class="pl-k">=</span> <span class="pl-smi">str</span>.<span class="pl-c1">toLowerCase</span>()
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, <span class="pl-s"><span class="pl-pds">"</span>str after: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> str);</pre></div>
+
+<p>Using a wrapper you can have more control over inputs and outputs and error handling within CloudTest.  In the example with the string the only reason you can do this is because the package is imported by default.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//String Functions With Wrapper.  StringBuilder and String Types are both wrapped</span>
+<span class="pl-en">importPackage</span>(<span class="pl-smi">org</span>.<span class="pl-smi">soasta</span>.<span class="pl-smi">helper</span>);
+
+<span class="pl-k">var</span> StringBuilder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">StringBuilderHelper</span>(<span class="pl-smi">$context</span>.<span class="pl-en">createJavaEnvironment</span>(),<span class="pl-s"><span class="pl-pds">"</span>Hello<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">StringBuilder</span>.<span class="pl-en">Append</span>(<span class="pl-s"><span class="pl-pds">"</span> World<span class="pl-pds">"</span></span>);
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, <span class="pl-smi">StringBuilder</span>.<span class="pl-en">ToString</span>());
+
+<span class="pl-k">var</span> length <span class="pl-k">=</span> <span class="pl-smi">StringBuilder</span>.<span class="pl-en">Length</span>();
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, length);
+
+<span class="pl-k">var</span> reverse <span class="pl-k">=</span> <span class="pl-smi">StringBuilder</span>.<span class="pl-en">Reverse</span>();
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, reverse);
+
+<span class="pl-k">var</span> StringHelper <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">JavaStringHelper</span>(<span class="pl-smi">$context</span>.<span class="pl-en">createJavaEnvironment</span>(),<span class="pl-smi">StringBuilder</span>.<span class="pl-en">Reverse</span>());
+<span class="pl-k">var</span> equalsString <span class="pl-k">=</span> <span class="pl-smi">StringHelper</span>.<span class="pl-en">EqualsIgnoreCase</span>(<span class="pl-s"><span class="pl-pds">"</span>DLROW OLLEH<span class="pl-pds">"</span></span>);
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, equalsString);
+
+<span class="pl-k">var</span> matchesString <span class="pl-k">=</span> <span class="pl-smi">StringHelper</span>.<span class="pl-en">Matches</span>(<span class="pl-s"><span class="pl-pds">"</span>(?i:.*OLLEH.*)<span class="pl-pds">"</span></span>);
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, matchesString);
+
+<span class="pl-smi">StringHelper</span>.<span class="pl-en">Replace</span>(<span class="pl-s"><span class="pl-pds">"</span>World<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>SOASTA<span class="pl-pds">"</span></span>)
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, <span class="pl-smi">StringHelper</span>.<span class="pl-en">Value</span>());
+
+<span class="pl-smi">StringHelper</span>.<span class="pl-en">ToLowerCase</span>();
+<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-en">postMessage</span>(<span class="pl-smi">$context</span>.<span class="pl-smi">result</span>.<span class="pl-c1">LEVEL_INFO</span>, <span class="pl-smi">StringHelper</span>.<span class="pl-en">Value</span>());</pre></div>
+
+<p>For message conversion the class name "GzipConverter" would be entered as the module name for binary conversion for the target.  Then all messages for that target would have the compress and decompress methods invoked during processing.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">public</span> final <span class="pl-k">class</span> <span class="pl-en">GzipConverter</span> <span class="pl-k">implements</span> MessageConverter {
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> byte[] <span class="pl-en">compress</span>(<span class="pl-c1">String</span> string) throws IOException {
+        ByteArrayOutputStream os <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ByteArrayOutputStream</span>(<span class="pl-smi">string</span>.<span class="pl-c1">length</span>());
+        GZIPOutputStream gos <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">GZIPOutputStream</span>(os);
+        <span class="pl-smi">gos</span>.<span class="pl-c1">write</span>(<span class="pl-smi">string</span>.<span class="pl-en">getBytes</span>());
+        <span class="pl-smi">gos</span>.<span class="pl-c1">close</span>();
+        byte[] compressed <span class="pl-k">=</span> <span class="pl-smi">os</span>.<span class="pl-en">toByteArray</span>();
+        <span class="pl-smi">os</span>.<span class="pl-c1">close</span>();
+        <span class="pl-k">return</span> compressed;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-c1">String</span> <span class="pl-en">decompress</span>(byte[] compressed) throws IOException {
+        final int <span class="pl-c1">BUFFER_SIZE</span> <span class="pl-k">=</span> <span class="pl-c1">32</span>;
+        ByteArrayInputStream is <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ByteArrayInputStream</span>(compressed);
+        GZIPInputStream gis <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">GZIPInputStream</span>(is, <span class="pl-c1">BUFFER_SIZE</span>);
+        StringBuilder string <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">StringBuilder</span>();
+        byte[] data <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">byte</span>[<span class="pl-c1">BUFFER_SIZE</span>];
+        int bytesRead;
+        <span class="pl-k">while</span> ((bytesRead <span class="pl-k">=</span> <span class="pl-smi">gis</span>.<span class="pl-en">read</span>(data)) <span class="pl-k">!=</span> <span class="pl-k">-</span><span class="pl-c1">1</span>) {
+            <span class="pl-smi">string</span>.<span class="pl-en">append</span>(<span class="pl-k">new</span> <span class="pl-en">String</span>(data, <span class="pl-c1">0</span>, bytesRead));
+        }
+        <span class="pl-smi">gis</span>.<span class="pl-c1">close</span>();
+        <span class="pl-smi">is</span>.<span class="pl-c1">close</span>();
+        <span class="pl-k">return</span> <span class="pl-smi">string</span>.<span class="pl-c1">toString</span>();
+    }
+
+    @Override
+    <span class="pl-k">public</span> <span class="pl-c1">String</span> <span class="pl-en">deserializeResponse</span>(byte[] resp) throws Exception {
+        <span class="pl-k">return</span> <span class="pl-en">decompress</span>(resp);
+    }
+
+    @Override
+    <span class="pl-k">public</span> byte[] <span class="pl-en">serializeRequest</span>(<span class="pl-c1">String</span> req) throws Exception {
+        <span class="pl-k">return</span> <span class="pl-en">compress</span>(req);
+    }
+
+}</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/cdiddyPerformance">cdiddyPerformance</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
